@@ -24,36 +24,4 @@ public class AdminController {
                 .getAuthentication().getPrincipal());
         return "admin";
     }
-
-    @PostMapping("/")
-    public String addUser(@ModelAttribute("newUser") User user) {
-        userService.saveUser(user);
-        return "redirect:/admin/";
-    }
-
-    @GetMapping("/{id}/edit")
-    public String editUser(@PathVariable("id") Long id, Model model) {
-        User userToEdit = userService.getUserById(id);
-        String roleUser = (userToEdit.getStringRoles().contains("ROLE_USER") ? "on" : null);
-        String roleAdmin = (userToEdit.getStringRoles().contains("ROLE_ADMIN") ? "on" : null);
-
-        model.addAttribute("userToEdit", userService.getUserById(id));
-        model.addAttribute("roleUser", roleUser);
-        model.addAttribute("roleAdmin", roleAdmin);
-        return "adminController/edit";
-    }
-
-    @PutMapping("/{id}")  // edit user
-    public String update(@ModelAttribute("user") User user) {
-        System.out.println("....ОТЛАДКА! " + user.toString());
-        userService.updateUser(user);
-        return "redirect:/admin/";
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
-        userService.deleteUser(id);
-        return "redirect:/admin/";
-    }
-
 }

@@ -14,21 +14,4 @@ public class UserController {
         model.addAttribute("authorisedUser", user);
         return "authenticationPage";
     }
-
-
-//    @PostMapping("/admin")
-//    public String deleteUser(@RequestParam(required = true, defaultValue = "") Long id,
-//                             @RequestParam(required = true, defaultValue = "") String action,
-//                             Model model) {
-//        if (action.equals("delete")) {
-//            userService.deleteUser(id);
-//        }
-//        return "redirect:/admin";
-//    }
-//
-//    @GetMapping("admin/gt/@{id}")
-//    public String gtUser(@PathVariable("id") Long id, Model model) {
-//        model.addAttribute("allUsers", userService.usergtList(id));
-//        return "admin";
-//    }
 }
