@@ -21,7 +21,7 @@ public class User implements UserDetails {
     private int age;
     @Column(name = "password")
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE) // CascadeType.ALL означает, что необходимо выполнять каскадно сразу все операции
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // CascadeType.ALL означает, что необходимо выполнять каскадно сразу все операции
     @JoinTable(
             name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id") },
@@ -130,7 +130,7 @@ public class User implements UserDetails {
                 ", username='" + username + '\'' +
                 ", age=" + age +
                 ", password='" + password + '\'' +
-//                ", roles=" + roles.toString() +
+                ", roles=" + roles.toString() +
                 '}';
     }
 }

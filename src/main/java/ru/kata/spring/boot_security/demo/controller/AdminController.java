@@ -22,7 +22,7 @@ public class AdminController {
         model.addAttribute("newUser", new User());
         model.addAttribute("authorisedUser", (User) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal());
-        return "authenticationPage";
+        return "admin";
     }
 
     @PostMapping("/")

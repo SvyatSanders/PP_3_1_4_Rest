@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("работает WebSecurityConfig метод configure (HttpSecurity http)");
         http
-            .csrf().disable() // хрень
+            .csrf().disable()
             // запрос конфигурации разрешений через метод authorizeRequests()
             .authorizeRequests()
                 // доступно неавторизованным пользователям для регистрации
@@ -65,7 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("аутентифицируем юзера" + auth.toString());
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
     }
 }

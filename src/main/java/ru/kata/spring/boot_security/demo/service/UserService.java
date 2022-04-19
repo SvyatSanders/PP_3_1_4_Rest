@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,6 +32,7 @@ public class UserService implements UserDetailsService {
 
     // в коде явно не вызывается
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
@@ -80,6 +82,13 @@ public class UserService implements UserDetailsService {
     @Transactional
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
+    }
+
+    @Transactional
+    public User getAuthUser() {
+        User user = (User) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        return user;
     }
 
 }
