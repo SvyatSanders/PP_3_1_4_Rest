@@ -4,15 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.thymeleaf.dialect.IDialect;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(  // https://www.baeldung.com/spring-security-method-security
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
@@ -39,9 +44,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // доступно неавторизованным пользователям для регистрации
 //                .antMatchers("/registration").not().fullyAuthenticated()
                 //Доступ только для пользователей с ролью ADMIN
-                .antMatchers("/admin/**").hasRole("ADMIN") // даем разрешение на просмотр
+                // .antMatchers("/admin/**").hasRole("ADMIN") // даем разрешение на просмотр
                 //Доступ только для пользователей с ролью USER
-                .antMatchers("/user").hasAnyRole("USER", "ADMIN") // даем разрешение на просмотр
+                // .antMatchers("/user").hasAnyRole("USER", "ADMIN") // даем разрешение на просмотр
                 //Доступ разрешен для всех пользователей, данные urls защищать не надо(.permitAll())
 //                .antMatchers("/", "/resources/**").permitAll()
                 .antMatchers("/resources/**").permitAll()

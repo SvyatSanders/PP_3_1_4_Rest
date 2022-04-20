@@ -9,19 +9,19 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/")
 public class AdminController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
+    @GetMapping
     public String userList(Model model) {
-        model.addAttribute("usersList", userService.getAllUsers());
-        model.addAttribute("rolesList", userService.getAllRoles());
-        model.addAttribute("newUser", new User());
-        model.addAttribute("authorisedUser", (User) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal());
+//        model.addAttribute("usersList", userService.getAllUsers());
+//        model.addAttribute("rolesList", userService.getAllRoles());
+//        model.addAttribute("newUser", new User());
+//        model.addAttribute("authorisedUser", (User) SecurityContextHolder.getContext()
+//                .getAuthentication().getPrincipal());
         return "admin";
     }
 }
