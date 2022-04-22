@@ -237,15 +237,16 @@ async function addNewUser() {
         password: password,
         roles: roles
     }
-    console.log(data)
     const response = await userFetchService.addNewUser(data);
+    getTableWithUsers();
+    addUserForm.find("#firstNameAdd").val().trim();
+    addUserForm.find("#ageAdd").val().trim();
+    addUserForm.find("#passwordAdd").val().trim();
+    addUserForm.find("#roleAdd").val();
+    alert('User was added')
+
     if (response.ok) {
-        getTableWithUsers();
-        addUserForm.find("#firstNameAdd").val().trim();
-        addUserForm.find("#ageAdd").val().trim();
-        addUserForm.find("#passwordAdd").val().trim();
-        addUserForm.find("#roleAdd").val();
-        alert('User was added')
+
     } else {
         let body = await response.json();
         let alert = `<div class="alert alert-danger alert-dismissible fade show col-12" role="alert" id="sharaBaraMessageError">

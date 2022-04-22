@@ -58,6 +58,11 @@ public class UserService implements UserDetailsService {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new IllegalArgumentException(String.format("User with username %s already exists in database", user.getUsername()));
         }
+
+        for (Role role : user.getRoles()) {
+            role.setId(roleRepository.findAll().stream().filter(i -> i.getRole().equals(role.getRole())).findFirst().get().getId());
+        }
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -65,6 +70,11 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public boolean updateUser(User user) {
+
+        for (Role role : user.getRoles()) {
+            role.setId(roleRepository.findAll().stream().filter(i -> i.getRole().equals(role.getRole())).findFirst().get().getId());
+        }
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
